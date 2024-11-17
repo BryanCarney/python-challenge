@@ -40,7 +40,7 @@ student_count
 
 39170
 # Calculate the total budget
-As the combined data set contains multiple line items for the school budget, totalling the true budget values for each school needed to be based on a single data point.  There were two ways to go about retrieving this data point.  It could have been based on isolating on the school data to calculate based on that file only to avoid accounting for the duplicate line items.  The below worked off the combined data set using unique to isolate the bedget value.  
+As the combined data set now contained multiple line items for the school budget, totalling the true budget values for each school needed to be based on each school as a single data point.  There were two ways to go about retrieving this value.  It could have been based on isolating on the school data csv file independently from the merged data, in order to calculate based on the original data to avoid duplicate line items.  The below approach worked off the combined data set, using unique to isolate the budget value.  
 
 total_budget = (school_data_complete["budget"].unique()).sum()
 

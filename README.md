@@ -25,43 +25,60 @@ school_data_complete.head()
 
 # Calculate the total number of unique schools
 school_count = school_data_complete["school_name"].nunique()
+
 school_count
+
 15
 # Calculate the total number of students
 student_count = school_data_complete["student_name"].count()
+
 student_count
+
 39170
 # Calculate the total budget
 As the combined data set contains multiple line items for the school budget, totalling the true budget values for each school needed to be based on a single data point.  There were two ways to go about retrieving this data point.  It could have been based on isolating on the school data to calculate based on that file only to avoid accounting for the duplicate line items.  The below worked off the combined data set using unique to isolate the bedget value.  
 
 total_budget = (school_data_complete["budget"].unique()).sum()
+
 total_budget
+
 24649428
 # Calculate the average (mean) math score
 average_math_score = school_data_complete["math_score"].mean()
+
 average_math_score
+
 78.98537145774827
 # Calculate the average (mean) reading score
 average_reading_score = school_data_complete["reading_score"].mean()
+
 average_reading_score
+
 81.87784018381414
 # Use the following to calculate the percentage of students who passed math (math scores greather than or equal to 70)
 passing_math_count = school_data_complete[(school_data_complete["math_score"] >= 70)].count()["student_name"]
 passing_math_percentage = passing_math_count / float(student_count) * 100
+
 passing_math_percentage
+
 74.9808526933878
 # Calculate the percentage of students who passed reading (hint: look at how the math percentage was calculated)
 passing_reading_count = school_data_complete[(school_data_complete["reading_score"] >= 70)].count()["student_name"]
 passing_reading_percentage = passing_reading_count / float(student_count)*100
+
 passing_reading_percentage
+
 85.80546336482001
 # Use the following to calculate the percentage of students that passed math and reading - using both variables created above, to calculate the overall passing rate. 
 passing_math_reading_count = school_data_complete[
     (school_data_complete["math_score"] >= 70) & (school_data_complete["reading_score"] >= 70)
 ].count()["student_name"]
 overall_passing_rate = passing_math_reading_count /  float(student_count) * 100
+
 overall_passing_rate
+
 65.17232575950983
+
 # Create a high-level snapshot of the district's key metrics in a DataFrame.  
 Utilizing the variables defined from the work done in the above code, a DataFrame  was created with the column names to link the required inforation. 
 
@@ -82,13 +99,13 @@ district_summary
 
 ![image](https://github.com/user-attachments/assets/ae184e21-c8e6-4dfc-a33b-5c94b6383575)
 
-#Secondary check of variables datatypes
+# Secondary check of variables datatypes
 Initially, I attempted to format each column to present with a cleaner format, however, in doing so it converted the values to an object which caused issues later in the code.  This was identified by using .dtypes, which is present now throughout the code as a double check to ensure the values are formatted correctly. 
 
 ![image](https://github.com/user-attachments/assets/940949f6-659b-42da-82e5-237a1fab5e08)
 
 
-#School Summary
+# School Summary
 
 # Use the code provided to select the type per school from school_data
 school_types = school_data.set_index(["school_name"])["type"]

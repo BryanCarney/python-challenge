@@ -1,6 +1,7 @@
 # python-challenge
 
 # PyCity Schools Analysis
+Below is the analysis completed based on the files provided as part of the challenge.  The final analysis can be located at the bottom of this README.md document
 
 # Dependencies and Setup
 import pandas as pd
@@ -17,13 +18,12 @@ student_data = pd.read_csv(student_data_to_load)
 # Combine the data into a single dataset.
 school_data_complete = pd.merge(student_data, school_data, how="left", on="school_name")
 school_data_complete.head()
-Student ID	student_name	gender	grade	school_name	reading_score	math_score	School ID	type	size	budget
-0	0	Paul Bradley	M	9th	Huang High School	66	79	0	District	2917	1910635
-1	1	Victor Smith	M	12th	Huang High School	94	61	0	District	2917	1910635
-2	2	Kevin Rodriguez	M	12th	Huang High School	90	60	0	District	2917	1910635
-3	3	Dr. Richard Scott	M	12th	Huang High School	67	58	0	District	2917	1910635
-4	4	Bonnie Ray	F	9th	Huang High School	97	84	0	District	2917	1910635
+
+![image](https://github.com/user-attachments/assets/03b25180-ab65-499e-9ad3-465466199bc6)
+
+
 District Summary
+
 # Calculate the total number of unique schools
 school_count = school_data_complete["school_name"].nunique()
 school_count

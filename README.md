@@ -21,7 +21,7 @@ school_data_complete.head()
 
 ![image](https://github.com/user-attachments/assets/03b25180-ab65-499e-9ad3-465466199bc6)
 
-#District Summary
+# District Summary
 
 # Calculate the total number of unique schools
 school_count = school_data_complete["school_name"].nunique()

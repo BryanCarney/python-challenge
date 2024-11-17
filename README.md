@@ -421,7 +421,7 @@ type_summary
 
 ![image](https://github.com/user-attachments/assets/e9c59874-c9f3-4911-b8e9-3bd872494f90)
 
-# Analysis - Using Metric calculated from the code above, I used certain dataframes to help articulate and re-enforce my analysis with graphs.
+# Analysis - Using Metric calculated from the code above, I used certain dataframes to help articulate and re-enforce my analysis.
 
 One of my main observations was that Charter Schools have a much higher passing rate.  Using the Dataframe created to breakdown the school's passing rates by school type, I used a standard horizontal bar graph graph to create a visual to help showcase this difference.  As you can see from the graph, while the average scores for both Math and Reading do not have a big gap, the Passing Percentages are dramatically lower in district school than charter schools. Especially for overall passing rate.  This would suggest, that based on the way overall passing rate is calculated, that students in the District schools tend to struggle with one of the two subjects.  To clarify further, since the overall passing rate is determined by the combination of the "Math Passing Percentage" and the "Reading Passing percentage", the "Overall Passing Percentage" being significantly lower suggests that one of these parameters is bringing down the overall total.  If you look at the excel file example provided the student from these district schools are resulting in fails because their math score is bringing down their overall score to the point they are failing.  This is despite their high marks in reading. 
 
@@ -432,7 +432,7 @@ type_summary.plot.barh()
 ![image](https://github.com/user-attachments/assets/0d1f61b0-c807-41cb-9672-ccc346c8140b)
 
 
-To dive further into the observations, another factor that attributes to the "Overall Passing Percentage" success rate is the size of the school.  If you look at the below graph, you can see that larger schools have a dramatically lower "Ovverall Passing Percentage" success rate than medium to small schools.  This is in spite of these schools having similiar "Per Student Budget".  One might draw the conclusion that due to the small school sizes, students are more likely to succeed because they receive more individually attention from their teachers.  Keeping school sizes small has a direct corilation to the success of the school.  This is why Charter schools have a higher "Overall Passing Percentage" because on average, they tend to have a dramatically smaller Total Student count.     
+To dive further into the observations, another factor that attributes to the "Overall Passing Percentage" success rate is the size of the school. If you look at the below graph, you can see that larger schools have a dramatically lower "Overall Passing Percentage" success rate than medium to small schools. This is in spite of these schools having similar "Per Student Budget". One might draw the conclusion that due to the small school sizes, students are more likely to succeed because they receive more individually attention from their teachers. Keeping school sizes small has a direct correlation to the success of the school. This is why Charter schools have a higher "Overall Passing Percentage" because on average, they tend to have a dramatically smaller Total Student count.    
 
 size_summary.plot.bar()
 

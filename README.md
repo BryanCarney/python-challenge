@@ -432,10 +432,18 @@ type_summary.plot.barh()
 ![image](https://github.com/user-attachments/assets/0d1f61b0-c807-41cb-9672-ccc346c8140b)
 
 
-To dive further into the observations, another factor that may attribute to the "Overall Passing Percentage" success rate is the size of the school.  If you look at the below graph, you can see that larger schools have a dramatically lower "Ovverall Passing Percentage" success rate than medium to small schools.  This is in spite of these schools having similiar "Per Student Budget".   
+To dive further into the observations, another factor that attributes to the "Overall Passing Percentage" success rate is the size of the school.  If you look at the below graph, you can see that larger schools have a dramatically lower "Ovverall Passing Percentage" success rate than medium to small schools.  This is in spite of these schools having similiar "Per Student Budget".  One might draw the conclusion that due to the small school sizes, students are more likely to succeed because they receive more individually attention from their teachers.  Keeping school sizes small has a direct corilation to the success of the school.  This is why Charter schools have a higher "Overall Passing Percentage" because on average, they tend to have a dramatically smaller Total Student count.     
 
 size_summary.plot.bar()
 
 ![image](https://github.com/user-attachments/assets/54244f55-d0cb-4637-bf3d-6d6887fca200)
+
 ![image](https://github.com/user-attachments/assets/abaff684-d810-4449-9396-69e0a89bcda4)
 
+To further support my conclusion, I calculated the average number of students by school type. This clearly shows that Charter schools statiscally have lower school sizes, which is a key factor in their success.  
+
+student_count_type = school_size_df.groupby(["School Type"])["Total Students"].mean()
+
+student_count_type
+
+![image](https://github.com/user-attachments/assets/d36b6e05-9837-4082-b1d2-eb9763260e29)

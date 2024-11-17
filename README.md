@@ -8,7 +8,7 @@ import pandas as pd
 
 from pathlib import Path
 
-# File to Load (Remember to Change These)
+# File to Load
 school_data_to_load = Path("Resources/schools_complete.csv")
 
 student_data_to_load = Path("Resources/students_complete.csv")

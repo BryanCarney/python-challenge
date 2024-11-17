@@ -21,7 +21,7 @@ school_data_complete.head()
 
 ![image](https://github.com/user-attachments/assets/03b25180-ab65-499e-9ad3-465466199bc6)
 
-District Summary
+#District Summary
 
 # Calculate the total number of unique schools
 school_count = school_data_complete["school_name"].nunique()
@@ -31,7 +31,9 @@ school_count
 student_count = school_data_complete["student_name"].count()
 student_count
 39170
-# Calculate the total budget - As the combined data set contains multiple line items for the school budget, totalling the true budget values for each school needed to be based on a single data point.  There were two ways to go about retrieving this data point.  It could have been based on isolating on the school data to calculate based on that file only to avoid accounting for the duplicate line items.  The below worked off the combined data set using unique to isolate the bedget value.  
+# Calculate the total budget
+As the combined data set contains multiple line items for the school budget, totalling the true budget values for each school needed to be based on a single data point.  There were two ways to go about retrieving this data point.  It could have been based on isolating on the school data to calculate based on that file only to avoid accounting for the duplicate line items.  The below worked off the combined data set using unique to isolate the bedget value.  
+
 total_budget = (school_data_complete["budget"].unique()).sum()
 total_budget
 24649428
@@ -60,7 +62,9 @@ passing_math_reading_count = school_data_complete[
 overall_passing_rate = passing_math_reading_count /  float(student_count) * 100
 overall_passing_rate
 65.17232575950983
-# Create a high-level snapshot of the district's key metrics in a DataFrame.  Utilizing the variables defined from the work done in the above code, a DataFrame  was created with the column names to link the required inforation. 
+# Create a high-level snapshot of the district's key metrics in a DataFrame.  
+Utilizing the variables defined from the work done in the above code, a DataFrame  was created with the column names to link the required inforation. 
+
 district_summary = pd.DataFrame({"Total Schools": [school_count],
                                 "Total Students": [student_count],
                                 "Total Budget": [total_budget], "Average Math Score": [school_data_complete["math_score"].mean()], 
@@ -78,7 +82,8 @@ district_summary
 
 ![image](https://github.com/user-attachments/assets/ae184e21-c8e6-4dfc-a33b-5c94b6383575)
 
-#Initially, I attempted to format each column to present with a cleaner format, however, in doing so it converted the values to an object which caused issues later in the code.  This was identified by using .dtypes, which is present now throughout the code as a double check to ensure the values are formatted correctly. 
+#Secondary check of variables datatypes
+Initially, I attempted to format each column to present with a cleaner format, however, in doing so it converted the values to an object which caused issues later in the code.  This was identified by using .dtypes, which is present now throughout the code as a double check to ensure the values are formatted correctly. 
 
 print(district_summary.dtypes) 
 Total Schools              int64
@@ -135,7 +140,9 @@ Wilson High School       2283
 Wright High School       1800
 Name: size, dtype: int64
 
-# Calculate the total school budget and per capita spending per school from school_data.  Using the groupby function I was able to successfully determine the budget for each school.  I then utilize the code above for school counts to assign the per_school_captia value.
+# Calculate the total school budget and per capita spending per school from school_data.  
+Using the groupby function I was able to successfully determine the budget for each school.  I then utilize the code above for school counts to assign the per_school_captia value.
+
 per_school_budget = per_school_budget = school_data.groupby("school_name")["budget"].sum()
 per_school_capita = per_school_budget / per_school_counts
 
@@ -374,7 +381,9 @@ spending_bins = [0, 585, 630, 645, 680]
 labels = ["<$585", "$585-630", "$630-645", "$645-680"]
 labels
 ['<$585', '$585-630', '$630-645', '$645-680']
-# Create a copy of the school summary for later aggregations - I chose to display the results of the copied data to ensure there were no missing or irregular datapoints as a secondary validation due to my issues with the misclassified variables I explained earlier in my analysis. 
+# Create a copy of the school summary for later aggregations 
+I chose to display the results of the copied data to ensure there were no missing or irregular datapoints as a secondary validation due to my issues with the misclassified variables I explained earlier in my analysis. 
+
 school_spending_df = per_school_summary.copy()
 school_spending_df
 ![image](https://github.com/user-attachments/assets/0d426969-9293-43a3-af36-01ec1fca3f1b)
@@ -457,7 +466,7 @@ type_summary
 
 # Analysis - Using Metric calculated from the code above, I used certain dataframes to help articulate and re-enforce my analysis with graphs.
 
-#One of my main observations was that Charter Schools have a much higher passing rate.  Using the Dataframe created to breakdown the school's passing rates by school type, I used a standard horizontal bar graph graph to create a visual to help showcase this difference.  As you can see from the graph, while the average scores for both Math and Reading do not have a big gap, the Passing Percentages are dramatically lower in district school than charter schools. Especially for overall passing rate.  This would suggest, that based on the way overall passing rate is calculated, that students in the District schools tend to struggle with one of the two subjects.  To clarify further, since the overall passing rate is determined by the combination of the "Math Passing Percentage" and the "Reading Passing percentage", the "Overall Passing Percentage" being significantly lower suggests that one of these parameters is bringing down the overall total.  If you look at the excel file example provided the student from these district schools are resulting in fails because their math score is bringing down their overall score to the point they are failing.  This is despite their high marks in reading. 
+One of my main observations was that Charter Schools have a much higher passing rate.  Using the Dataframe created to breakdown the school's passing rates by school type, I used a standard horizontal bar graph graph to create a visual to help showcase this difference.  As you can see from the graph, while the average scores for both Math and Reading do not have a big gap, the Passing Percentages are dramatically lower in district school than charter schools. Especially for overall passing rate.  This would suggest, that based on the way overall passing rate is calculated, that students in the District schools tend to struggle with one of the two subjects.  To clarify further, since the overall passing rate is determined by the combination of the "Math Passing Percentage" and the "Reading Passing percentage", the "Overall Passing Percentage" being significantly lower suggests that one of these parameters is bringing down the overall total.  If you look at the excel file example provided the student from these district schools are resulting in fails because their math score is bringing down their overall score to the point they are failing.  This is despite their high marks in reading. 
 
 type_summary.plot.barh()
 ![image](https://github.com/user-attachments/assets/60fd0b7a-1d42-4a2d-994c-3e0df58be1bf)
@@ -465,7 +474,7 @@ type_summary.plot.barh()
 ![image](https://github.com/user-attachments/assets/0d1f61b0-c807-41cb-9672-ccc346c8140b)
 
 
-#To dive further into the observations, another factor that may attribute to the "Overall Passing Percentage" success rate is the size of the school.  If you look at the below graph, you can see that larger schools have a dramatically lower "Ovverall Passing Percentage" success rate than medium to small schools.  This is in spite of these schools having similiar "Per Student Budget".   
+To dive further into the observations, another factor that may attribute to the "Overall Passing Percentage" success rate is the size of the school.  If you look at the below graph, you can see that larger schools have a dramatically lower "Ovverall Passing Percentage" success rate than medium to small schools.  This is in spite of these schools having similiar "Per Student Budget".   
 
 size_summary.plot.bar()
 ![image](https://github.com/user-attachments/assets/54244f55-d0cb-4637-bf3d-6d6887fca200)

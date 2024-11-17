@@ -5,18 +5,22 @@ Below is the analysis completed based on the files provided as part of the chall
 
 # Dependencies and Setup
 import pandas as pd
+
 from pathlib import Path
 
 # File to Load (Remember to Change These)
 school_data_to_load = Path("Resources/schools_complete.csv")
+
 student_data_to_load = Path("Resources/students_complete.csv")
 
 # Read School and Student Data File and store into Pandas DataFrames
 school_data = pd.read_csv(school_data_to_load)
+
 student_data = pd.read_csv(student_data_to_load)
 
 # Combine the data into a single dataset.
 school_data_complete = pd.merge(student_data, school_data, how="left", on="school_name")
+
 school_data_complete.head()
 
 ![image](https://github.com/user-attachments/assets/03b25180-ab65-499e-9ad3-465466199bc6)
@@ -57,6 +61,7 @@ average_reading_score
 81.87784018381414
 # Use the following to calculate the percentage of students who passed math (math scores greather than or equal to 70)
 passing_math_count = school_data_complete[(school_data_complete["math_score"] >= 70)].count()["student_name"]
+
 passing_math_percentage = passing_math_count / float(student_count) * 100
 
 passing_math_percentage
@@ -64,6 +69,7 @@ passing_math_percentage
 74.9808526933878
 # Calculate the percentage of students who passed reading (hint: look at how the math percentage was calculated)
 passing_reading_count = school_data_complete[(school_data_complete["reading_score"] >= 70)].count()["student_name"]
+
 passing_reading_percentage = passing_reading_count / float(student_count)*100
 
 passing_reading_percentage
@@ -73,6 +79,7 @@ passing_reading_percentage
 passing_math_reading_count = school_data_complete[
     (school_data_complete["math_score"] >= 70) & (school_data_complete["reading_score"] >= 70)
 ].count()["student_name"]
+
 overall_passing_rate = passing_math_reading_count /  float(student_count) * 100
 
 overall_passing_rate
@@ -92,6 +99,7 @@ district_summary = pd.DataFrame({"Total Schools": [school_count],
 
 # Formatting
 district_summary["Total Students"] = district_summary["Total Students"].map("{:,}".format)
+
 district_summary["Total Budget"] = district_summary["Total Budget"].map("${:,.2f}".format)
 
 # Display the formatted DataFrame
@@ -109,6 +117,7 @@ Initially, I attempted to format each column to present with a cleaner format, h
 
 # Use the code provided to select the type per school from school_data
 school_types = school_data.set_index(["school_name"])["type"]
+
 school_types
 
 ![image](https://github.com/user-attachments/assets/a81d9514-cbf9-432e-91c0-40b98a0b24d6)
@@ -116,6 +125,7 @@ school_types
 
 # Calculate the total student count per school from school_data
 per_school_counts = school_data.groupby("school_name")["size"].sum()
+
 per_school_counts
 
 ![image](https://github.com/user-attachments/assets/45cb946a-72e3-4ade-a2dc-c2ae743daa51)
@@ -125,6 +135,7 @@ per_school_counts
 Using the groupby function I was able to successfully determine the budget for each school.  I then utilize the code above for school counts to assign the per_school_captia value.
 
 per_school_budget = per_school_budget = school_data.groupby("school_name")["budget"].sum()
+
 per_school_capita = per_school_budget / per_school_counts
 
 per_school_budget, per_school_capita
@@ -134,6 +145,7 @@ per_school_budget, per_school_capita
 
 # Calculate the average test scores per school from school_data_complete
 per_school_math = school_data_complete.groupby("school_name")["math_score"].mean()
+
 per_school_reading = school_data_complete.groupby("school_name")["reading_score"].mean()
 
 per_school_math, per_school_reading
@@ -143,7 +155,9 @@ per_school_math, per_school_reading
 
 # Calculate the number of students per school with math scores of 70 or higher from school_data_complete
 students_passing_math = school_data_complete[school_data_complete["math_score"] >= 70]
+
 school_students_passing_math = students_passing_math.groupby("school_name").size()
+
 school_students_passing_math
 
 ![image](https://github.com/user-attachments/assets/ad521cf5-0e2d-4d1d-901e-22eeeb0f091d)
@@ -151,7 +165,9 @@ school_students_passing_math
 
 # Calculate the number of students per school with reading scores of 70 or higher from school_data_complete
 students_passing_reading = school_data_complete[school_data_complete["reading_score"] >= 70]
+
 school_students_passing_reading = students_passing_reading.groupby("school_name").size()
+
 school_students_passing_reading
 
 ![image](https://github.com/user-attachments/assets/10ad93f9-7aab-42c3-bd6d-402971a2626e)
@@ -161,11 +177,14 @@ school_students_passing_reading
 students_passing_math_and_reading = school_data_complete[
     (school_data_complete["reading_score"] >= 70) & (school_data_complete["math_score"] >= 70)
 ]
+
 school_students_passing_math_and_reading = students_passing_math_and_reading.groupby(["school_name"]).size()
 
 # Use the provided code to calculate the passing rates
 per_school_passing_math = school_students_passing_math / per_school_counts * 100
+
 per_school_passing_reading = school_students_passing_reading / per_school_counts * 100
+
 overall_passing_rate = school_students_passing_math_and_reading / per_school_counts * 100
 
 # Create a DataFrame called `per_school_summary` with columns for the calculations above.
@@ -180,6 +199,7 @@ per_school_summary = pd.DataFrame({"School Type": school_types,
                                     "% Overall Passing": overall_passing_rate})
 # Formatting
 per_school_summary["Total School Budget"] = per_school_summary["Total School Budget"].map("${:,.2f}".format)
+
 per_school_summary["Per Student Budget"] = per_school_summary["Per Student Budget"].map("${:,.2f}".format)
 
 
@@ -197,6 +217,7 @@ print(per_school_summary.dtypes)
 # Highest-Performing Schools (by % Overall Passing)
 # Sort the schools by `% Overall Passing` in descending order and display the top 5 rows.
 top_schools = per_school_summary.sort_values("% Overall Passing", ascending=False)
+
 top_schools.head(5)
 
 ![image](https://github.com/user-attachments/assets/3c53bc8f-8d1c-4249-838f-e116fab52e5d)
@@ -204,6 +225,7 @@ top_schools.head(5)
 # Bottom Performing Schools (By % Overall Passing)
 # Sort the schools by `% Overall Passing` in ascending order and display the top 5 rows.
 bottom_schools = per_school_summary.sort_values("% Overall Passing", ascending=True)
+
 bottom_schools.head(5)
 
 ![image](https://github.com/user-attachments/assets/7ba7bdc2-3740-4c45-a9c0-fb9898fb2bd7)
@@ -211,14 +233,20 @@ bottom_schools.head(5)
 # Math Scores by Grade
 # Use the code provided to separate the data by grade
 ninth_graders = school_data_complete[(school_data_complete["grade"] == "9th")]
+
 tenth_graders = school_data_complete[(school_data_complete["grade"] == "10th")]
+
 eleventh_graders = school_data_complete[(school_data_complete["grade"] == "11th")]
+
 twelfth_graders = school_data_complete[(school_data_complete["grade"] == "12th")]
 
 # Group by `school_name` and take the mean of the `math_score` column for each.
 ninth_grade_math_scores = ninth_graders.groupby("school_name")["math_score"].mean()
+
 tenth_grader_math_scores = tenth_graders.groupby("school_name")["math_score"].mean()
+
 eleventh_grader_math_scores = eleventh_graders.groupby("school_name")["math_score"].mean()
+
 twelfth_grader_math_scores = twelfth_graders.groupby("school_name")["math_score"].mean()
 
 # Combine each of the scores above into single DataFrame called `math_scores_by_grade`
@@ -238,14 +266,20 @@ math_scores_by_grade
 # Reading Score by Grade
 # Use the code provided to separate the data by grade
 ninth_graders = school_data_complete[(school_data_complete["grade"] == "9th")]
+
 tenth_graders = school_data_complete[(school_data_complete["grade"] == "10th")]
+
 eleventh_graders = school_data_complete[(school_data_complete["grade"] == "11th")]
+
 twelfth_graders = school_data_complete[(school_data_complete["grade"] == "12th")]
 
 # Group by `school_name` and take the mean of the the `reading_score` column for each.
 ninth_grade_reading_scores = ninth_graders.groupby("school_name")["reading_score"].mean()
+
 tenth_grader_reading_scores = tenth_graders.groupby("school_name")["reading_score"].mean()
+
 eleventh_grader_reading_scores = eleventh_graders.groupby("school_name")["reading_score"].mean()
+
 twelfth_grader_reading_scores = twelfth_graders.groupby("school_name")["reading_score"].mean()
 
 # Combine each of the scores above into single DataFrame called `reading_scores_by_grade`
@@ -266,14 +300,19 @@ reading_scores_by_grade
 # Scores by School Spending
 # Establish the bins
 spending_bins = [0, 585, 630, 645, 680]
+
 labels = ["<$585", "$585-630", "$630-645", "$645-680"]
+
 labels
-['<$585', '$585-630', '$630-645', '$645-680']
+
+![image](https://github.com/user-attachments/assets/43733440-314d-4179-a41f-1ef829846e45)
+
 
 # Create a copy of the school summary for later aggregations 
 I chose to display the results of the copied data to ensure there were no missing or irregular datapoints as a secondary validation due to my issues with the misclassified variables I explained earlier in my analysis. 
 
 school_spending_df = per_school_summary.copy()
+
 school_spending_df
 
 ![image](https://github.com/user-attachments/assets/0d426969-9293-43a3-af36-01ec1fca3f1b)
@@ -283,16 +322,22 @@ school_spending_df["Spending Ranges (Per Student)"] = pd.cut(per_school_capita, 
 
 # Convert Spending Ranges (Per Student) to a string
 school_spending_df["Spending Ranges (Per Student)"] = school_spending_df["Spending Ranges (Per Student)"].astype(str)
+
 school_spending_df
 
 ![image](https://github.com/user-attachments/assets/8c90c050-b273-4ca7-b026-5e25622e7760)
 
 #  Calculate averages for the desired columns.
 spending_math_scores = school_spending_df.groupby(["Spending Ranges (Per Student)"])["Average Math Score"].mean()
+
 spending_reading_scores = school_spending_df.groupby(["Spending Ranges (Per Student)"])["Average Reading Score"].mean()
+
 spending_passing_math = school_spending_df.groupby(["Spending Ranges (Per Student)"])["% Passing Math"].mean()
+
 spending_passing_reading = school_spending_df.groupby(["Spending Ranges (Per Student)"])["% Passing Reading"].mean()
+
 overall_passing_spending = school_spending_df.groupby(["Spending Ranges (Per Student)"])["% Overall Passing"].mean()
+
 # Assemble into DataFrame
 spending_summary = pd.DataFrame({"Average Math Score": spending_math_scores,
                                 "Average Reading Score": spending_reading_scores,
@@ -309,7 +354,13 @@ spending_summary
 # Scores by School Size
 # Establish the bins.
 size_bins = [0, 1000, 2000, 5000]
+
 labels = ["Small (<1000)", "Medium (1000-2000)", "Large (2000-5000)"]
+
+labels
+
+![image](https://github.com/user-attachments/assets/4c0b3a67-637f-4fa3-aafe-37f052a5676e)
+
 # Create a copy of the school summary for later aggregations
 school_size_df = per_school_summary.copy()
 # Use `pd.cut` on the per_school_counts Series from earlier to categorize school size based on the bins.
@@ -317,16 +368,22 @@ school_size_df["School Size"] = pd.cut(school_size_df["Total Students"], bins=si
 
 # Convert School Size to a string
 school_size_df["School Size"] = school_size_df["School Size"].astype(str)
+
 school_size_df
 
 ![image](https://github.com/user-attachments/assets/881c5476-2f81-48ff-b0d3-0cd8381685f0)
 
 # Calculate averages for the desired columns.
 size_math_scores = school_size_df.groupby(["School Size"])["Average Math Score"].mean()
+
 size_reading_scores = school_size_df.groupby(["School Size"])["Average Reading Score"].mean()
+
 size_passing_math = school_size_df.groupby(["School Size"])["% Passing Math"].mean()
+
 size_passing_reading = school_size_df.groupby(["School Size"])["% Passing Reading"].mean()
+
 size_overall_passing = school_size_df.groupby(["School Size"])["% Overall Passing"].mean()
+
 # Create a DataFrame called `size_summary` that breaks down school performance based on school size (small, medium, or large).
 # Use the scores above to create a new DataFrame called `size_summary`
 size_summary = pd.DataFrame({"Average Math Score": size_math_scores,
@@ -343,10 +400,15 @@ size_summary
 # Scores by School Type
 # Group the per_school_summary DataFrame by "School Type" and average the results.
 average_math_score_by_type = per_school_summary.groupby(["School Type"])["Average Math Score"].mean()
+
 average_reading_score_by_type = per_school_summary.groupby(["School Type"])["Average Reading Score"].mean()
+
 average_percent_passing_math_by_type = per_school_summary.groupby(["School Type"])["% Passing Math"].mean()
+
 average_percent_passing_reading_by_type = per_school_summary.groupby(["School Type"])["% Passing Reading"].mean()
+
 average_percent_overall_passing_by_type = per_school_summary.groupby(["School Type"])["% Overall Passing"].mean()
+
 # Assemble the new data by type into a DataFrame called `type_summary`
 type_summary = pd.DataFrame({"Average Math Score": average_math_score_by_type,
                             "Average Reading Score": average_reading_score_by_type,

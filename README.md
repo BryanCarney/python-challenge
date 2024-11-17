@@ -421,7 +421,7 @@ type_summary
 
 ![image](https://github.com/user-attachments/assets/e9c59874-c9f3-4911-b8e9-3bd872494f90)
 
-# Analysis - Using Metric calculated from the code above, I used certain dataframes to help articulate and re-enforce my analysis.
+# Analysis - Using metrics calculated from the code above, I used certain dataframes to help articulate and re-enforce my analysis.
 
 One of my main observations was that Charter Schools have a much higher passing rate.  Using the Dataframe created to breakdown the school's passing rates by school type, I used a standard horizontal bar graph graph to create a visual to help showcase this difference.  As you can see from the graph, while the average scores for both Math and Reading do not have a big gap, the Passing Percentages are dramatically lower in district school than charter schools. Especially for overall passing rate.  This would suggest, that based on the way overall passing rate is calculated, that students in the District schools tend to struggle with one of the two subjects.  To clarify further, since the overall passing rate is determined by the combination of the "Math Passing Percentage" and the "Reading Passing percentage", the "Overall Passing Percentage" being significantly lower suggests that one of these parameters is bringing down the overall total.  If you look at the excel file example provided the student from these district schools are resulting in fails because their math score is bringing down their overall score to the point they are failing.  This is despite their high marks in reading. 
 

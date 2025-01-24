@@ -1,5 +1,19 @@
 # Python-challenge
 
+### Solution
+
+### Python Files
+
+[PyBank](https://github.com/BryanCarney/python-challenge/blob/main/PyBank_starter.py)
+
+[PyPoll](https://github.com/BryanCarney/python-challenge/blob/main/PyPoll_starter.py)
+
+### Analysis Output
+[Budget Analysis](https://github.com/BryanCarney/python-challenge/blob/main/budget_analysis.txt)
+
+[Election Analysis](https://github.com/BryanCarney/python-challenge/blob/main/election_analysis.txt)
+
+
 # PyBank challenge Instructions
 
 Create a Python script to analyze the financial records of a company. A financial dataset called budget_data.csv. The dataset is composed of two columns: "Date" and "Profit/Losses".
